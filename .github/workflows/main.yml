@@ -2,20 +2,24 @@ name: Pruebas
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
+  test:
   runs-on: ubuntu-latest
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 18
-    - name: Pruebas test
-      run: npm test
-    - name: Pruebas lint
-      run: npm run lint
-    - name: Pruebas Coverage
-      run: npm run test:coverage
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+      - name: Install dependencies
+        with: npm ci
+      - name: Pruebas test
+        run: npm test
+      - name: Pruebas lint
+        run: npm run lint
+      - name: Pruebas Coverage
+        run: npm run test:coverage
